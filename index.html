@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Document</title>
+</head>
+
+<body>
+ <div class="container" style="display: flex;flex-direction: row;border: 1px solid black;">
+  <h1>⬅</h1>
+  <h2
+   style="color:white ;width:1% ; background:#ABD0BC ; border-radius:50%;text-align: center;align-items: center;height: 1%;padding: 30px;margin: 20px;">
+   J</h2>
+   <div style="display: flex;flex-direction: column;">
+  <h1>John</h1>
+  <h2 style="margin-top: 5%;margin-left: -5%;">+91-7355630858</h2>
+  </div>
+ </div>
+ <p id='demo' style='text-align: center; '></p>
+ <div id="app"></div>
+ <script>
+
+  function fetchData() {
+   let url = "https://dev.onebanc.ai/assignment.asmx/GetTransactionHistory?recipientId=2&userId= 1"
+   fetch(url)
+    .then(function (resp) {
+
+     console.log(resp)
+     return resp.json();
+    })
+    .then(function (data) {
+     console.log(data.transactions)
+     const html = data.transactions.map((user, status) => {
+
+      // <div class="user" style="padding : 1rem">
+      //   <div style="border : 1px solid black ; display : flex ; justify-content : space-between">
+      //     <h1>Rs ${user.amount}</h1>
+      //     <p> ✔️ You paid</p>
+      //    </div>
+      //  </div>
+      switch (status) {
+       case 1:
+        return `
+        
+            <div style="text-align : center; padding : 4rem">${user.startDate}</div>
+            <div class="user" style="padding : 1rem">
+            <div style="border : 1px solid black ; width: 87%; float : right;padding: 20px ">
+             <div style="display : flex ; justify-content : space-between">
+              <h1>₹ ${user.amount}</h1>
+              <p> ✔️ You paid</p>
+             </div>
+             <div style="display : flex ; justify-content : space-between">
+              <p>Transaction ID <br><span>${user.id}</span></p>
+              <p> ▶️ </p>
+              </div>
+             </div>
+             </div>
+             <div style=" padding : 2rem; float : right">${user.startDate}</div>
+             <br><br>
+            `
+        break;
+       case 2:
+        return `
+             <div style="text-align : center ; padding : 14rem">${user.startDate}</div>
+            <div class="user" style="padding : 1rem">
+            <div style="border : 1px solid black ; width: 87%; float : right;padding: 20px ">
+             <div style="display : flex ; justify-content : space-between">
+              <h1>₹ ${user.amount}</h1>
+              <p> 📎 You requested</p>
+             </div>
+             <div style="display : flex ; justify-content : space-between">
+              <button style='background: green ; color : white ; width: 20%;height: 40px;border-radius: 0.5rem'>Cancel</button>
+              <p> ▶️  </p>
+              </div>
+             </div>
+           </div>
+           <div style=" padding : 2rem; float : right">${user.startDate}</div><br><br>
+            `
+        break;
+       case 3:
+        return `
+            <div style="text-align : center; padding : 14rem">${user.startDate}</div>
+            <div class="user" style="padding : 1rem">
+            <div style="border : 1px solid black ; width: 87% ;padding: 20px">
+             <div style="display : flex ; justify-content : space-between">
+              <h1>₹ ${user.amount}</h1>
+              <p> ✔️ You received</p>
+             </div>
+             <div style="display : flex ; justify-content : space-between">
+              <p>Transaction ID <br><span>${user.id}</span></p>
+              <p> ▶️ </p>
+              </div>
+             </div>
+             <div style = "padding : 1rem;margin-left: 78%;">${user.startDate}</div>
+           </div>
+           
+            `
+        break;
+       case 4:
+        return `
+            
+            <div class="user" style="padding : 1rem">
+            <div style="border : 1px solid black ; width: 87% ;padding: 20px">
+             <div style="display : flex ; justify-content : space-between">
+              <h1>₹ ${user.amount}</h1>
+              <p> 📎 Request received</p>
+             </div>
+             <div style= 'padding: 20px;'>
+              <button style='background: green ; color : white ; width: 20%;height: 40px;border-radius: 0.5rem'>Pay</button> 
+              <button style='background: green ; color : white ; width: 20%;height: 40px;border-radius: 0.5rem'>Decline</button>
+              </div>
+             </div>
+             <div style = "padding : 1rem;margin-left: 78%;">${user.startDate}</div>
+           </div>
+            `
+        break;
+       case 5:
+        return `
+            
+            <div class="user" style="padding : 1rem">
+            <div style="border : 1px solid black ; width: 87%;padding: 20px ">
+             <div style="display : flex ; justify-content : space-between">
+              <h1>₹ ${user.amount}</h1>
+              <p> ✔️ You paid</p>
+             </div>
+             <div style="display : flex ; justify-content : space-between">
+              <p>Transaction ID <br><span>${user.id}</span></p>
+              <p> ▶️ </p>
+              </div>
+             </div>
+           </div>
+           <div >${user.startDate}</div>
+            `
+        break;
+      }
+
+     }).join('');
+     console.log(html)
+     document.querySelector('#app')
+      .insertAdjacentHTML('afterbegin', html)
+    }).catch(error => {
+     console.log(error)
+    })
+  }
+
+  fetchData();
+ </script>
+</body>
+
+</html>
