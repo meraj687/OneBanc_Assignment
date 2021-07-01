@@ -2,48 +2,48 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
- <div class="container" style="display: flex;flex-direction: row;border: 1px solid black;">
-  <h1>⬅</h1>
-  <h2
-   style="color:white ;width:1% ; background:#ABD0BC ; border-radius:50%;text-align: center;align-items: center;height: 1%;padding: 30px;margin: 20px;">
-   J</h2>
-   <div style="display: flex;flex-direction: column;">
-  <h1>John</h1>
-  <h2 style="margin-top: 5%;margin-left: -5%;">+91-7355630858</h2>
+  <div class="container" style="display: flex;flex-direction: row;border: 1px solid black;">
+    <h1>⬅</h1>
+    <h2
+      style="color:white ;width:1% ; background:#ABD0BC ; border-radius:50%;text-align: center;align-items: center;height: 1%;padding: 30px;margin: 20px;">
+      J</h2>
+    <div style="display: flex;flex-direction: column;">
+      <h1>John</h1>
+      <h2 style="margin-top: 5%;margin-left: -5%;">+91-7355630858</h2>
+    </div>
   </div>
- </div>
- <p id='demo' style='text-align: center; '></p>
- <div id="app"></div>
- <script>
+  <p id='demo' style='text-align: center; '></p>
+  <div id="app"></div>
+  <script>
 
-  function fetchData() {
-   let url = "https://dev.onebanc.ai/assignment.asmx/GetTransactionHistory?recipientId=2&userId= 1"
-   fetch(url)
-    .then(function (resp) {
+    function fetchData() {
+      let url = "https://dev.onebanc.ai/assignment.asmx/GetTransactionHistory?recipientId=2&userId= 1"
+      fetch(url)
+        .then(function (resp) {
 
-     console.log(resp)
-     return resp.json();
-    })
-    .then(function (data) {
-     console.log(data.transactions)
-     const html = data.transactions.map((user, status) => {
+          console.log(resp)
+          return resp.json();
+        })
+        .then(function (data) {
+          console.log(data.transactions)
+          const html = data.transactions.map((user, status) => {
 
-      // <div class="user" style="padding : 1rem">
-      //   <div style="border : 1px solid black ; display : flex ; justify-content : space-between">
-      //     <h1>Rs ${user.amount}</h1>
-      //     <p> ✔️ You paid</p>
-      //    </div>
-      //  </div>
-      switch (status) {
-       case 1:
-        return `
+            // <div class="user" style="padding : 1rem">
+            //   <div style="border : 1px solid black ; display : flex ; justify-content : space-between">
+            //     <h1>Rs ${user.amount}</h1>
+            //     <p> ✔️ You paid</p>
+            //    </div>
+            //  </div>
+            switch (status) {
+              case 1:
+                return `
         
             <div style="text-align : center; padding : 4rem">${user.startDate}</div>
             <div class="user" style="padding : 1rem">
@@ -61,9 +61,9 @@
              <div style=" padding : 2rem; float : right">${user.startDate}</div>
              <br><br>
             `
-        break;
-       case 2:
-        return `
+                break;
+              case 2:
+                return `
              <div style="text-align : center ; padding : 14rem">${user.startDate}</div>
             <div class="user" style="padding : 1rem">
             <div style="border : 1px solid black ; width: 87%; float : right;padding: 20px ">
@@ -79,9 +79,9 @@
            </div>
            <div style=" padding : 2rem; float : right">${user.startDate}</div><br><br>
             `
-        break;
-       case 3:
-        return `
+                break;
+              case 3:
+                return `
             <div style="text-align : center; padding : 14rem">${user.startDate}</div>
             <div class="user" style="padding : 1rem">
             <div style="border : 1px solid black ; width: 87% ;padding: 20px">
@@ -98,9 +98,9 @@
            </div>
            
             `
-        break;
-       case 4:
-        return `
+                break;
+              case 4:
+                return `
             
             <div class="user" style="padding : 1rem">
             <div style="border : 1px solid black ; width: 87% ;padding: 20px">
@@ -116,9 +116,9 @@
              <div style = "padding : 1rem;margin-left: 78%;">${user.startDate}</div>
            </div>
             `
-        break;
-       case 5:
-        return `
+                break;
+              case 5:
+                return `
             
             <div class="user" style="padding : 1rem">
             <div style="border : 1px solid black ; width: 87%;padding: 20px ">
@@ -134,20 +134,20 @@
            </div>
            <div >${user.startDate}</div>
             `
-        break;
-      }
+                break;
+            }
 
-     }).join('');
-     console.log(html)
-     document.querySelector('#app')
-      .insertAdjacentHTML('afterbegin', html)
-    }).catch(error => {
-     console.log(error)
-    })
-  }
+          }).join('');
+          console.log(html)
+          document.querySelector('#app')
+            .insertAdjacentHTML('afterbegin', html)
+        }).catch(error => {
+          console.log(error)
+        })
+    }
 
-  fetchData();
- </script>
+    fetchData();
+  </script>
 </body>
 
 </html>
